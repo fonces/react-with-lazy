@@ -46,7 +46,7 @@ useLazy<T = any, I = any>(
 ): T
 ```
 
-withLazy can specify a promise and an array as an argument
+withLazy can be used by specifying Component
 ```js
 withLazy<P extends LazyComponentProps>(
   Component: ComponentType<Omit<P, keyof LazyComponentProps>>
