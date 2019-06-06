@@ -1,11 +1,6 @@
 # react-with-lazy
 Package to easily launch react hooks' suspense with Promise
 
-## Installation
-```
-$ npm install react-with-lazy
-```
-
 ## Usage
 ```js
 const Employees = ({ useLazy }: Props) => {
