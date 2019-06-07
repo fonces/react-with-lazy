@@ -32,7 +32,7 @@ export default (() => {
 
   const globalCacheMap = new Map<symbol, PromiseCache<any, any>[]>()
 
-  return (options?: CreateUseLazyOptions) => {
+  return (options?: Partial<CreateUseLazyOptions>) => {
 
     const symbol: unique symbol = Symbol()
     options = Object.assign({}, defaultOptions, options)

@@ -2,7 +2,9 @@
 Package to easily launch react hooks' suspense with Promise
 
 ## Usage
-```js
+```jsx
+import withLazy, { LazyComponentProps } from 'react-with-lazy'
+
 const Employees = ({ useLazy }: LazyComponentProps) => {
   const { state: { page, rowsPerPage } } = useContext(PaginationContext)
   const employees = useLazy<Employee[]>(
@@ -34,6 +36,42 @@ export default () => (
 )
 ```
 
+or
+
+```jsx
+import { createUseLazy, LazyComponentProps } from 'react-with-lazy'
+
+// Cache forever
+const useLazy = createUseLazy({
+  perpetual: true
+})
+
+const Employee = ({ id }: Employee) => {
+  const employee = useLazy<User>(
+    () => api.get('employee', { id }).then(res => res.json()),
+    [id]
+  )
+
+  return (
+    <ul>
+      <li>{employee.id}</li>
+      <li>{employee.employee_name}</li>
+      <li>{employee.employee_salary}</li>
+      <li>{employee.employee_age}</li>
+      <li>{employee.profile_image}</li>
+    </ul>
+  )
+}
+
+const LazyEmployee = withLazy<Props>(Employee)
+
+export default () => (
+  <React.Suspense fallback={<Loading />}>
+    <LazyEmployee />
+  </React.Suspense>
+)
+```
+
 ## API
 useLazy can specify a promise and an array as an argument
 ```js
@@ -46,7 +84,7 @@ useLazy<T = any, I = any>(
 withLazy can be used by specifying Component
 ```js
 withLazy<P extends LazyComponentProps>(
-  Component: ComponentType<Omit<P, keyof LazyComponentProps>>,
+  Component: ComponentType<P>,
   options?: CreateUseLazyOptions
 ): ReactElement
 ```
@@ -55,6 +93,6 @@ withLazy<P extends LazyComponentProps>(
 CreateUseLazyOptions
 ```
 {
-  perpetual: boolean
+  perpetual?: boolean
 }
 ```
