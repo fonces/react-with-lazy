@@ -61,7 +61,7 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "files": [
-    "src/index.tsx",
+    "src/with-lazy.tsx",
     "src/create-use-lazy.ts"
   ]
 }

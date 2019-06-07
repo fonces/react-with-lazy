@@ -1,4 +1,4 @@
-import withLazy, { LazyComponentProps as _LazyComponentProps } from './src'
+import withLazy, { LazyComponentProps as _LazyComponentProps } from './src/with-lazy'
 import createUseLazy, { UseLazy as _UseLazy, CreateUseLazyOptions as _CreateUseLazyOptions } from './src/create-use-lazy'
 
 export {
