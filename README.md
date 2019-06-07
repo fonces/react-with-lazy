@@ -46,6 +46,15 @@ useLazy<T = any, I = any>(
 withLazy can be used by specifying Component
 ```js
 withLazy<P extends LazyComponentProps>(
-  Component: ComponentType<Omit<P, keyof LazyComponentProps>>
+  Component: ComponentType<Omit<P, keyof LazyComponentProps>>,
+  options?: CreateUseLazyOptions
 ): ReactElement
+```
+
+## interfaces
+CreateUseLazyOptions
+```
+{
+  perpetual: boolean
+}
 ```
