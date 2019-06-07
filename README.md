@@ -41,7 +41,7 @@ export default () => (
 or
 
 ```jsx
-import { createUseLazy, LazyComponentProps } from 'react-with-lazy'
+import { createUseLazy } from 'react-with-lazy'
 
 // Cache forever
 const useLazy = createUseLazy({
