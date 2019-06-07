@@ -1,5 +1,7 @@
 # react-with-lazy
-Package to easily launch react hooks' suspense with Promise
+Package to easily launch react hooks' suspense with Promise.  
+Cache results in Promsie definition units.  
+The result is done at the same time as the destruction of the component. Also, it is possible to cache permanently.  
 
 ## Usage
 ```jsx
@@ -63,11 +65,9 @@ const Employee = ({ id }: Props) => {
   )
 }
 
-const LazyEmployee = withLazy<Props>(Employee)
-
 export default () => (
   <React.Suspense fallback={<Loading />}>
-    <LazyEmployee />
+    <Employee />
   </React.Suspense>
 )
 ```
@@ -96,3 +96,7 @@ CreateUseLazyOptions
   perpetual?: boolean
 }
 ```
+
+## Other
+When making it, I made reference to [this](https://github.com/CharlesStover/fetch-suspense) source.  
+Thank you.
