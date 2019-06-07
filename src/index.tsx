@@ -11,8 +11,8 @@ export type LazyComponentProps = {
   useLazy: UseLazy
 }
 
-export default function withLazy<P extends LazyComponentProps>(Component: ComponentType<PureProps<P>>) {
-  const useLazy = createUseLazy()
+function withLazy<P extends LazyComponentProps>(Component: ComponentType<PureProps<P>>, options?: CreateUseLazyOptions) {
+  const useLazy = createUseLazy(options)
   const displayName = `withLazy(${Component.displayName || Component.name})`
   const UseLazyComponent = (props: PureProps<P>): ReactElement => (
     <Component {...props} useLazy={useLazy} />
@@ -25,5 +25,6 @@ export default function withLazy<P extends LazyComponentProps>(Component: Compon
 }
 
 export {
+  withLazy as default,
   createUseLazy
 }
