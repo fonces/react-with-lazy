@@ -46,8 +46,8 @@ const useLazy = createUseLazy({
   perpetual: true
 })
 
-const Employee = ({ id }: Employee) => {
-  const employee = useLazy<User>(
+const Employee = ({ id }: Props) => {
+  const employee = useLazy<Employee>(
     () => api.get('employee', { id }).then(res => res.json()),
     [id]
   )
