@@ -3,9 +3,11 @@ Package to easily launch react hooks' suspense with Promise
 
 ## Usage
 ```js
-const Employees = ({ useLazy }: Props) => {
+const Employees = ({ useLazy }: LazyComponentProps) => {
+  const { state: { page, rowsPerPage } } = useContext(PaginationContext)
   const employees = useLazy<Employee[]>(
-    () => api.get('employees', { page, rowsPerPage }).then(res => res.json())
+    () => api.get('employees', { page, rowsPerPage }).then(res => res.json()),
+    [page, rowsPerPage]
   )
 
   return (
