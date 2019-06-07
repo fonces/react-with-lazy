@@ -15,7 +15,7 @@ const Employees = ({ useLazy }: LazyComponentProps) => {
   )
 
   return (
-    <>
+    <React.Fragment>
       {employees.map((employee, key) => (
         <ul key={key}>
           <li>{employee.id}</li>
@@ -25,7 +25,7 @@ const Employees = ({ useLazy }: LazyComponentProps) => {
           <li>{employee.profile_image}</li>
         </ul>
       ))}
-    </>
+    </React.Fragment>
   )
 }
 

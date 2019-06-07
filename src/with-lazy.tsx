@@ -4,8 +4,6 @@ import createUseLazy, { CreateUseLazyOptions, UseLazy } from './create-use-lazy'
 
 type PureProps<P extends LazyComponentProps> = Omit<P, keyof LazyComponentProps>
 
-export type UseLazy = UseLazy
-export type CreateUseLazyOptions = CreateUseLazyOptions
 export type LazyComponentProps = {
   useLazy: UseLazy
 }

@@ -1,12 +1,6 @@
 import deepEqual from 'deep-equal'
 import { useEffect } from 'react'
 
-export type UseLazy = <T = any, I = any>(promise: PromiseType<T>, inits?: I) => T
-
-export interface CreateUseLazyOptions {
-  perpetual: boolean
-}
-
 type PromiseType<T> = Promise<T> | (() => Promise<T>)
 
 interface PromiseCache<T, I> {
@@ -15,6 +9,12 @@ interface PromiseCache<T, I> {
   promise?: Promise<void | T>
   error?: any
   response?: T
+}
+
+export type UseLazy = <T = any, I = any>(promise: PromiseType<T>, inits?: I) => T
+
+export interface CreateUseLazyOptions {
+  perpetual: boolean
 }
 
 const resolvePromise = <T>(promise: PromiseType<T>): Promise<T> => {
@@ -35,8 +35,8 @@ export default (() => {
   return (options?: Partial<CreateUseLazyOptions>) => {
 
     const symbol: unique symbol = Symbol()
-    options = Object.assign({}, defaultOptions, options)
     globalCacheMap.set(symbol, [])
+    options = Object.assign({}, defaultOptions, options)
 
     return <T = any, I = any>(promise: PromiseType<T>, inits?: I): T => {
 
