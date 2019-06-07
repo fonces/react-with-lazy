@@ -8,6 +8,9 @@
     "prepublishOnly": "npm run build"
   },
   "keywords": [
+    "react",
+    "reactjs",
+    "reacthooks",
     "hooks"
   ],
   "author": "fonces <fonces.xyz@gmail.com>",
