@@ -11,10 +11,7 @@ export type LazyComponentProps = {
 function withLazy<P extends LazyComponentProps>(Component: ComponentType<P>, options?: CreateUseLazyOptions) {
   const useLazy = createUseLazy(options)
   const displayName = `withLazy(${Component.displayName || Component.name})`
-  const UseLazyComponent = (props: PureProps<P>): ReactElement => {
-    (props as P).useLazy = useLazy
-    return <Component {...props as P} />
-  }
+  const UseLazyComponent = (props: PureProps<P>): ReactElement => <Component useLazy={useLazy} {...props as P} />
 
   UseLazyComponent.displayName = displayName
   UseLazyComponent.WrappedComponent = Component
