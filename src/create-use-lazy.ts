@@ -76,7 +76,12 @@ export default (() => {
           })
       }
 
-      const cacheIndex = caches.findIndex(findCache => findCache.serial === serial)
+      const cacheIndex = caches.findIndex(findCache => (
+        findCache.serial === serial && (
+          options!.perpetual && 
+          deepEqual(inits, findCache.inits)
+        )
+      ))
       if (-1 < cacheIndex) {
         caches[cacheIndex] = createCache
       } else {
