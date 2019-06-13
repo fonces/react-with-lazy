@@ -2,7 +2,7 @@
   "name": "react-with-lazy",
   "version": "0.1.7",
   "description": "Package to easily launch react hooks' suspense with Promise",
-  "main": "dist/with-lazy.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p .",
     "prepublishOnly": "npm run build"
