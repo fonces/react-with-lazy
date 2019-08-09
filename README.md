@@ -3,6 +3,11 @@ Package to easily launch react hooks' suspense with Promise.
 Cache results in Promsie definition units.  
 The result is done at the same time as the destruction of the component. Also, it is possible to cache permanently.  
 
+## Installation
+```shell
+$ npm install react-with-lazy # or yarn add react-with-lazy
+```
+
 ## Usage
 ```jsx
 import withLazy, { LazyComponentProps } from 'react-with-lazy'
@@ -44,7 +49,7 @@ or
 import { createUseLazy } from 'react-with-lazy'
 
 // Cache forever
-const useLazy = createUseLazy({
+const { useLazy } = createUseLazy({
   perpetual: true
 })
 

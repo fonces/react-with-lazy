@@ -1,6 +1,6 @@
 {
   "name": "react-with-lazy",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Package to easily launch react hooks' suspense with Promise",
   "main": "dist/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "type" : "git",
     "url" : "https://github.com/fonces/react-with-lazy.git"
   },
-  "dependencies": {
+  "devDependencies": {
     "@types/deep-equal": "^1.0.1",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/node": "^12.0.5",
@@ -30,5 +30,9 @@
     "node": "^12.4.0",
     "react": "^16.8.6",
     "typescript": "^3.5.1"
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-dom": ">=16.8"
   }
 }

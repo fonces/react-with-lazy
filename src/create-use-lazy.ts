@@ -1,9 +1,7 @@
 import deepEqual from 'deep-equal'
-import { useEffect } from 'react'
 
 type PromiseType<T> = Promise<T> | (() => Promise<T>)
-
-interface PromiseCache<T, I> {
+type PromiseCache<T, I> = {
   serial: string
   inits?: I
   promise?: Promise<void | T>
@@ -12,40 +10,35 @@ interface PromiseCache<T, I> {
 }
 
 export type UseLazy = <T = any, I = any>(promise: PromiseType<T>, inits?: I) => T
-
-export interface CreateUseLazyOptions {
+export type Purge = () => void
+export type CreateUseLazyOptions = {
   perpetual: boolean
 }
 
-const resolvePromise = <T>(promise: PromiseType<T>): Promise<T> => {
-  if (typeof promise === 'function') {
-    return promise()
-  }
-  return promise
+export const defaultOptions: CreateUseLazyOptions = {
+  perpetual: false
 }
 
-const defaultOptions: CreateUseLazyOptions = {
-  perpetual: false
+const wrapPromise = <T>(promise: PromiseType<T>): () => Promise<T> => {
+  if (promise instanceof Promise) {
+    return () => promise
+  }
+  return promise
 }
 
 export default (() => {
 
   const globalCacheMap = new Map<symbol, PromiseCache<any, any>[]>()
 
-  return (options?: Partial<CreateUseLazyOptions>) => {
+  return (options: Partial<CreateUseLazyOptions> = defaultOptions) => {
 
     const symbol: unique symbol = Symbol()
     globalCacheMap.set(symbol, [])
-    options = Object.assign({}, defaultOptions, options)
+    options = { ...defaultOptions, ...options }
 
-    return <T = any, I = any>(promise: PromiseType<T>, inits?: I): T => {
+    const useLazy = <T = any, I = any>(promise: PromiseType<T>, inits?: I): T => {
 
-      useEffect(() => () => {
-        if (!options!.perpetual) {
-          globalCacheMap.set(symbol, [])
-        }
-      }, [])
-
+      promise = wrapPromise(promise)
       const serial = promise.toString()
       const caches = globalCacheMap.get(symbol)!
 
@@ -67,7 +60,7 @@ export default (() => {
       const createCache: PromiseCache<T, I> = {
         serial,
         inits,
-        promise: resolvePromise<T>(promise)
+        promise: promise()
           .then((response: T): void => {
             createCache.response = response
           })
@@ -96,6 +89,15 @@ export default (() => {
       globalCacheMap.set(symbol, caches)
 
       throw createCache.promise
+    }
+
+    const purge = () => {
+      globalCacheMap.set(symbol, [])
+    }
+
+    return {
+      useLazy,
+      purge,
     }
   }
 })()
